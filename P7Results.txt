@@ -1,0 +1,82 @@
+Starting with FIFO queue.
+
+Summary: 
+Administrators:
+102 jobs handled.
+Maximum wait: 265 minutes.
+Total waiting time: 10152 minutes.
+Average waiting time: 99.5294 minutes.
+
+Faculty:
+65 jobs handled.
+Maximum wait: 261 minutes.
+Total waiting time: 6931 minutes.
+Average waiting time: 106.631 minutes.
+
+Students:
+40 jobs handled.
+Maximum wait: 266 minutes.
+Total waiting time: 4418 minutes.
+Average waiting time: 110.45 minutes.
+
+Overall:
+207 jobs handled.
+Total waiting time: 21501 minutes.
+Average waiting time: 103.87 minutes.
+
+
+================================================
+Starting with SJF queue.
+
+Summary: 
+Administrators:
+102 jobs handled.
+Maximum wait: 375 minutes.
+Total waiting time: 9807 minutes.
+Average waiting time: 96.1471 minutes.
+
+Faculty:
+65 jobs handled.
+Maximum wait: 306 minutes.
+Total waiting time: 5935 minutes.
+Average waiting time: 91.3077 minutes.
+
+Students:
+40 jobs handled.
+Maximum wait: 311 minutes.
+Total waiting time: 3703 minutes.
+Average waiting time: 92.575 minutes.
+
+Overall:
+207 jobs handled.
+Total waiting time: 19445 minutes.
+Average waiting time: 93.9372 minutes.
+
+
+================================================
+Starting with Multi-level queue.
+
+Summary: 
+Administrators:
+102 jobs handled.
+Maximum wait: 52 minutes.
+Total waiting time: 1468 minutes.
+Average waiting time: 14.3922 minutes.
+
+Faculty:
+65 jobs handled.
+Maximum wait: 221 minutes.
+Total waiting time: 8547 minutes.
+Average waiting time: 131.492 minutes.
+
+Students:
+40 jobs handled.
+Maximum wait: 432 minutes.
+Total waiting time: 11739 minutes.
+Average waiting time: 293.475 minutes.
+
+Overall:
+207 jobs handled.
+Total waiting time: 21754 minutes.
+Average waiting time: 105.092 minutes.
+
