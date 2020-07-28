@@ -1,14 +1,14 @@
-#ifndef FIFO_H
-#define FIFO_H
+#ifndef MULTI_LEVEL_H
+#define MULTI_LEVEL_H
 
 #include "PrintQueue.h"
 
-class FIFO : public printQueue {
+class MultiLevel : public printQueue {
 private:
 
 
 public:
-	FIFO();
+	MultiLevel();
 	int selectJob(std::vector<jobsData>& jobsPending, std::vector<statistics>& stats, int currentTime);
 	void writeSummary(std::vector<statistics>& stats, int simulations);
 };

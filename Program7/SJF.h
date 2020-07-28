@@ -1,16 +1,16 @@
-#ifndef FIFO_H
-#define FIFO_H
+#ifndef SJF_H
+#define SJF_H
 
 #include "PrintQueue.h"
 
-class FIFO : public printQueue {
+class SJF : public printQueue {
 private:
 
 
 public:
-	FIFO();
+	SJF();
 	int selectJob(std::vector<jobsData>& jobsPending, std::vector<statistics>& stats, int currentTime);
 	void writeSummary(std::vector<statistics>& stats, int simulations);
 };
 
-#endif // !FIFO_H
+#endif // !SJF_H

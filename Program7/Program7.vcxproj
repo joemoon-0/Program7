@@ -145,13 +145,17 @@
     <ClCompile Include="FIFO.cpp" />
     <ClCompile Include="JobsData.cpp" />
     <ClCompile Include="PrintQueue.cpp" />
+    <ClCompile Include="MultiLevel.cpp" />
     <ClCompile Include="Program7.cpp" />
+    <ClCompile Include="SJF.cpp" />
     <ClCompile Include="Statistics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FIFO.h" />
     <ClInclude Include="JobsData.h" />
     <ClInclude Include="PrintQueue.h" />
+    <ClInclude Include="MultiLevel.h" />
+    <ClInclude Include="SJF.h" />
     <ClInclude Include="Statistics.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

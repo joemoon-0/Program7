@@ -1,19 +1,19 @@
-#include "FIFO.h"
+#include "SJF.h"
 
 
-FIFO::FIFO() : printQueue() {
+SJF::SJF() : printQueue() {
 
 }
 
 
-int FIFO::selectJob(std::vector<jobsData>& jobsPending, std::vector<statistics>& stats, int currentTime) {
+int SJF::selectJob(std::vector<jobsData>& jobsPending, std::vector<statistics>& stats, int currentTime) {
 	jobsData job = jobsPending.front();							// Process first available job
 	jobsPending.erase(jobsPending.begin());						// Remove processed job
 	return printQueue::processJob(job, stats, currentTime);		// return nextAvailableTime
 }
 
-void FIFO::writeSummary(std::vector<statistics>& stats, int simulations) {
-	std::cout << "Starting with FIFO queue.\n\n";
+void SJF::writeSummary(std::vector<statistics>& stats, int simulations) {
+	std::cout << "Starting with SJF queue.\n\n";
 
 	printQueue::writeSummary(stats, simulations);
 }

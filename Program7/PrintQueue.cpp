@@ -42,10 +42,10 @@ int printQueue::processJob(jobsData job, std::vector<statistics>& stats, int cur
 	return (currentTime + serviceTime);								// nextAvailableTime
 }
 
-void printQueue::writeSummary(std::vector<statistics>& stats) {
+void printQueue::writeSummary(std::vector<statistics>& stats, int simulations) {
 	std::cout << "Summary:\n";
 		
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < simulations; i++) {
 		totalJobs += stats.at(i).getJobsHandled();
 		totalWait += stats.at(i).getWaitTime();
 
@@ -71,5 +71,6 @@ void printQueue::writeSummary(std::vector<statistics>& stats) {
 	std::cout << "Overall:\n";
 	std::cout << totalJobs << " jobs handled." << std::endl;
 	std::cout << "Total waiting time: " << totalWait << " minutes." << std::endl;
-	std::cout << "Average waiting time: " << (totalWait * 1.0 / totalJobs) << " minutes." << std::endl;
+	std::cout << "Average waiting time: " << (totalWait * 1.0 / totalJobs) << " minutes.\n\n" << std::endl;
+	std::cout << "================================================" << std::endl;
 }
