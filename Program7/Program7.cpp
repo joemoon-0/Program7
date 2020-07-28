@@ -35,19 +35,20 @@ int main() {
 	std::queue<jobsData> inputData;			// All jobs, including those not yet arrived
 	std::vector<jobsData> jobsPending;		// Jobs that have arrived but not yet handled
 	jobsData job;							// Object for print job being read/processed
-	
-	/* Vector for statistical data from print process
-	INDEXING: 0-Administration, 1-Faculty, 2-Students */
-	std::vector<statistics> jobStats(PRINT_CATEGORIES);	
-											   
 	bool jobsRemain = true;
 	int currentTime = 0;					// Current time on printer
 	int jobWaitTime;						// Wait time for a job
 	int nextAvailableTime = 0;				// Clock tick when printer will be available for next job
 
+	/* Vector for statistical data from print simulations
+	INDEXING: 0-Administration, 1-Faculty, 2-Students */
+	std::vector<statistics> jobStats(PRINT_CATEGORIES);	
+	
+	// SIMULATION OBJECTS
 	FIFO jobFIFO;							// FIFO job being processed
-	SJF jobSJF;
-	MultiLevel jobMultiLevel;
+	SJF jobSJF;								// SJF job bring processed
+	MultiLevel jobMultiLevel;				// Multi-Level job being processed
+
 
 	for (int simulation = 0; simulation < N_SIMULATIONS; simulation++) {
 		// STEP 1: Open and check input file
@@ -67,7 +68,8 @@ int main() {
 		// STEP 2: If printer available, process a job from pending queue
 		while (jobsRemain) {
 			// STEP 2A: Check that jobs exist, otherwise discontinue printing
-			if (inputData.size() == 0 && jobsPending.size() == 0) {
+			if (inputData.size() == 0 && jobsPending.size() == 0 && !jobMultiLevel.getPriorityPending()) {
+				// (No more jobs to be read) && (No jobs pending) && (No jobs waiting in priority queues (Multi-Level SIM))
 				jobsRemain = false;
 			}
 			else {
@@ -78,7 +80,10 @@ int main() {
 				}
 
 				// STEP 2C: Process next job based on printer availability
-				if ((currentTime >= nextAvailableTime) && jobsPending.size() > 0) {			// Printer available & jobs queued
+				if ((currentTime >= nextAvailableTime) && 
+					(jobsPending.size() > 0 || jobMultiLevel.getPriorityPending())) {			
+					// (Printer available) && (Jobs in queue OR Jobs in priority queue (Multi-Level SIM))
+										
 					switch (simulation) {
 					case 0:			/*** FIFO SIMULATION ***/
 						nextAvailableTime = jobFIFO.selectJob(jobsPending, jobStats, currentTime);
@@ -95,7 +100,7 @@ int main() {
 			currentTime++;
 		}
 	
-		// STEP 3: Report summary statistics
+		// STEP 3: Output summary statistics to file
 		switch (simulation) {
 		case 0:
 			jobFIFO.writeSummary(jobStats, PRINT_CATEGORIES);

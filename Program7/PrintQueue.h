@@ -12,8 +12,6 @@
 class printQueue {
 protected:
 	const double PAGES_PER_MINUTE = 150;		// Printing speed
-//	std::vector<statistics> stats;				/* Vector for statistical data from print process
-										//			INDEXING: 0-Administration, 1-Faculty, 2-Students */
 	int waitTime;								// Waiting time before processing
 	double serviceTime;							// Time required for a job
 	
