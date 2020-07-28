@@ -15,6 +15,7 @@ public:
 	int getWaitTime() const;
 	int getJobsHandled() const;
 	int getMaxWaitTime() const;
+	void clearStats();
 };
 
 #endif // !STATISTICS_H

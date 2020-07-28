@@ -12,8 +12,8 @@ int MultiLevel::selectJob(std::vector<jobsData>& jobsPending, std::vector<statis
 	return printQueue::processJob(job, stats, currentTime);		// return nextAvailableTime
 }
 
-void MultiLevel::writeSummary(std::vector<statistics>& stats, int simulations) {
+void MultiLevel::writeSummary(std::vector<statistics>& stats, int n_categories) {
 	std::cout << "Starting with Multi-level queue.\n\n";
 
-	printQueue::writeSummary(stats, simulations);
+	printQueue::writeSummary(stats, n_categories);
 }

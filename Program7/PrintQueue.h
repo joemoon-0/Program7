@@ -12,18 +12,15 @@
 class printQueue {
 protected:
 	const double PAGES_PER_MINUTE = 150;		// Printing speed
-	std::vector<statistics> stats;				/* Vector for statistical data from print process
-													INDEXING: 0-Administration, 1-Faculty, 2-Students */
-
+//	std::vector<statistics> stats;				/* Vector for statistical data from print process
+										//			INDEXING: 0-Administration, 1-Faculty, 2-Students */
 	int waitTime;								// Waiting time before processing
 	double serviceTime;							// Time required for a job
-	int totalJobs;								//
-	int totalWait;
 	
 public:
 	printQueue();
-	virtual int processJob(jobsData job, std::vector<statistics>& stats, int currentTime);
-	virtual void writeSummary(std::vector<statistics>& stats, int simulations) = 0;
+	int processJob(jobsData job, std::vector<statistics>& stats, int currentTime);
+	virtual void writeSummary(std::vector<statistics>& stats, int n_categories) = 0;
 };
 
 #endif // !PRINT_QUEUE_H

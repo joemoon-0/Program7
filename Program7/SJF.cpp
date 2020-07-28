@@ -12,8 +12,8 @@ int SJF::selectJob(std::vector<jobsData>& jobsPending, std::vector<statistics>& 
 	return printQueue::processJob(job, stats, currentTime);		// return nextAvailableTime
 }
 
-void SJF::writeSummary(std::vector<statistics>& stats, int simulations) {
+void SJF::writeSummary(std::vector<statistics>& stats, int n_categories) {
 	std::cout << "Starting with SJF queue.\n\n";
 
-	printQueue::writeSummary(stats, simulations);
+	printQueue::writeSummary(stats, n_categories);
 }

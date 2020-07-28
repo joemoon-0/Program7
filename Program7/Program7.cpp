@@ -23,6 +23,7 @@ int main() {
 	// CONSTANT VARIABLES
 	const int JOB_MINUTES = 480;			// Hours of operation: 9AM to 5 PM
 	const int N_SIMULATIONS = 3;			// 1-FIFO, 2-SJF, 3-PRIORITY Simulations
+	const int PRINT_CATEGORIES = 3;			// Administration, Faculty, Student
 	
 	// STREAM VARIABLES
 	std::ifstream in;
@@ -34,9 +35,11 @@ int main() {
 	std::queue<jobsData> inputData;			// All jobs, including those not yet arrived
 	std::vector<jobsData> jobsPending;		// Jobs that have arrived but not yet handled
 	jobsData job;							// Object for print job being read/processed
-	std::vector<statistics> jobStats(3);	/* Vector for statistical data from print process
-											   INDEXING: 0-Administration, 1-Faculty, 2-Students */
 	
+	/* Vector for statistical data from print process
+	INDEXING: 0-Administration, 1-Faculty, 2-Students */
+	std::vector<statistics> jobStats(PRINT_CATEGORIES);	
+											   
 	bool jobsRemain = true;
 	int currentTime = 0;					// Current time on printer
 	int jobWaitTime;						// Wait time for a job
@@ -63,17 +66,18 @@ int main() {
 
 		// STEP 2: If printer available, process a job from pending queue
 		while (jobsRemain) {
+			// STEP 2A: Check that jobs exist, otherwise discontinue printing
 			if (inputData.size() == 0 && jobsPending.size() == 0) {
 				jobsRemain = false;
 			}
 			else {
-				// STEP 2A: Check for all new jobs at currentTime.  Add to jobsPending queue.
+				// STEP 2B: Check for all new jobs at currentTime.  Add to jobsPending queue.
 				while ((inputData.size() > 0) && (inputData.front().getArrivalTime() == currentTime)) {
 					jobsPending.push_back(inputData.front());
 					inputData.pop();
 				}
 
-				// STEP 2B: Process next job based on printer availability
+				// STEP 2C: Process next job based on printer availability
 				if ((currentTime >= nextAvailableTime) && jobsPending.size() > 0) {			// Printer available & jobs queued
 					switch (simulation) {
 					case 0:			/*** FIFO SIMULATION ***/
@@ -91,15 +95,24 @@ int main() {
 			currentTime++;
 		}
 	
+		// STEP 3: Report summary statistics
+		switch (simulation) {
+		case 0:
+			jobFIFO.writeSummary(jobStats, PRINT_CATEGORIES);
+			break;
+		case 1:
+			jobSJF.writeSummary(jobStats, PRINT_CATEGORIES);
+			break;
+		case 2:
+			jobMultiLevel.writeSummary(jobStats, PRINT_CATEGORIES);
+			break;
+		}
+
 		// Reset parameters for next simulation
 		currentTime = 0;		
 		jobsRemain = true;
+		nextAvailableTime = 0;
 	}
-
-	// STEP -: Report summary statistics
-	jobFIFO.writeSummary(jobStats, N_SIMULATIONS);
-	jobSJF.writeSummary(jobStats, N_SIMULATIONS);
-	jobMultiLevel.writeSummary(jobStats, N_SIMULATIONS);
 
 	return 0;
 }

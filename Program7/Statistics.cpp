@@ -29,3 +29,9 @@ int statistics::getJobsHandled() const {
 int statistics::getMaxWaitTime() const {
 	return maxWaitTime;
 }
+
+void statistics::clearStats() {
+	waitTime = 0;
+	jobsHandled = 0;
+	maxWaitTime = 0;
+}
