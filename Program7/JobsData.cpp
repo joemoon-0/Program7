@@ -4,7 +4,6 @@ jobsData::jobsData() {
 	arrivalTime = 0;
 	category = ' ';
 	pages = 0;
-	jobComplete = false;
 }
 
 void jobsData::setArrivalTime(int arrivalTime) {
@@ -19,10 +18,6 @@ void jobsData::setPages(int pages) {
 	this->pages = pages;
 }
 
-void jobsData::markComplete() {
-	jobComplete = true;
-}
-
 int jobsData::getArrivalTime() const {
 	return arrivalTime;
 }
@@ -33,10 +28,6 @@ char jobsData::getCategory() const {
 
 int jobsData::getPages() const {
 	return pages;
-}
-
-bool jobsData::getJobStatus() const {
-	return jobComplete;
 }
 
 bool jobsData::ReadData(std::istream& in) {

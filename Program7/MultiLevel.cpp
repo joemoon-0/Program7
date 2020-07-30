@@ -9,7 +9,7 @@ MultiLevel::MultiLevel() : printQueue() {
 int MultiLevel::selectJob(std::vector<jobsData>& jobsPending, std::vector<statistics>& stats, int currentTime) {
 	jobsData job;												// Job to be processed
 
-	// STEP 1: Separate all pending jobs into priority queues
+	// STEP 1: Assign pending jobs into priority queues
 	while (jobsPending.size() > 0) {
 		switch (jobsPending.front().getCategory()) {
 		case 'A':
@@ -26,7 +26,7 @@ int MultiLevel::selectJob(std::vector<jobsData>& jobsPending, std::vector<statis
 		priorityPending = true;									// Job ready to be printed
 	}
 
-	// STEP 2: Assign next job to processed based on priority
+	// STEP 2: Assign next job to be processed based on priority
 	if (adminQueue.size() > 0) {								// Process admin jobs first
 		job = adminQueue.front();
 		adminQueue.pop();										// Remove selected job
@@ -40,7 +40,7 @@ int MultiLevel::selectJob(std::vector<jobsData>& jobsPending, std::vector<statis
 		studentQueue.pop();										// Remove selected job
 	}
 	else {
-		priorityPending = false;
+		priorityPending = false;								// No priority jobs in queue
 	}
 	
 	// STEP 3: Process selected job
@@ -52,8 +52,8 @@ bool MultiLevel::getPriorityPending() const {
 	return priorityPending;
 }
 
-void MultiLevel::writeSummary(std::vector<statistics>& stats, int n_categories) {
-	std::cout << "Starting with Multi-level queue.\n\n";
+void MultiLevel::writeSummary(std::ofstream& out, std::vector<statistics>& stats, int n_categories) {
+	out << "Starting with Multi-level queue.\n\n";
 
-	printQueue::writeSummary(stats, n_categories);
+	printQueue::writeSummary(out, stats, n_categories);
 }

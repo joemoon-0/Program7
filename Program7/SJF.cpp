@@ -12,7 +12,7 @@ int SJF::selectJob(std::vector<jobsData>& jobsPending, std::vector<statistics>& 
 	// STEP 1: Find shortest pending job
 	shortestIndex = findShortestJob(jobsPending);
 
-	// STEP 2: Assign shortest job to temporary object and remove from pending queue
+	// STEP 2: Assign shortest job to object and remove from pending queue
 	job = jobsPending.at(shortestIndex);
 	jobsPending.erase(jobsPending.begin() + shortestIndex);
 
@@ -36,8 +36,8 @@ int SJF::findShortestJob(std::vector<jobsData>& jobsPending) {
 }
 
 
-void SJF::writeSummary(std::vector<statistics>& stats, int n_categories) {
-	std::cout << "Starting with SJF queue.\n\n";
+void SJF::writeSummary(std::ofstream& out, std::vector<statistics>& stats, int n_categories) {
+	out << "Starting with SJF queue.\n\n";
 
-	printQueue::writeSummary(stats, n_categories);
+	printQueue::writeSummary(out, stats, n_categories);
 }

@@ -1,5 +1,5 @@
 #include "PrintQueue.h"
-
+#include <cmath>
 printQueue::printQueue() {
 	waitTime = 0;
 	serviceTime = 0;
@@ -7,7 +7,7 @@ printQueue::printQueue() {
 
 
 int printQueue::processJob(jobsData job, std::vector<statistics>& stats, int currentTime) {
-	serviceTime = round((job.getPages() / PAGES_PER_MINUTE) + 2.0);
+	serviceTime = round((job.getPages() * 1.0 / PAGES_PER_MINUTE) + 2.0);
 	waitTime = currentTime - job.getArrivalTime();
 
 	switch(job.getCategory()) {
@@ -40,11 +40,11 @@ int printQueue::processJob(jobsData job, std::vector<statistics>& stats, int cur
 	return (currentTime + serviceTime);								// nextAvailableTime
 }
 
-void printQueue::writeSummary(std::vector<statistics>& stats, int n_categories) {
+void printQueue::writeSummary(std::ofstream& out, std::vector<statistics>& stats, int n_categories) {
 	int totalJobs = 0;												// Overall statistics variable
 	int totalWait = 0;												// Overall statistics variable
 	
-	std::cout << "Summary:\n";
+	out << "Summary:\n";
 		
 	for (int i = 0; i < n_categories; i++) {
 		totalJobs += stats.at(i).getJobsHandled();
@@ -52,28 +52,28 @@ void printQueue::writeSummary(std::vector<statistics>& stats, int n_categories) 
 
 		switch (i) {
 		case 0:
-			std::cout << "Administrators:\n";
+			out << "Administrators:\n";
 			break;
 		case 1:
-			std::cout << "Faculty:\n";
+			out << "Faculty:\n";
 			break;
 		case 2:
-			std::cout << "Students:\n";
+			out << "Students:\n";
 			break;
 		}
 
-		std::cout << stats.at(i).getJobsHandled() << " jobs handled." << std::endl;
-		std::cout << "Maximum wait: " << stats.at(i).getMaxWaitTime() << " minutes." << std::endl;
-		std::cout << "Total waiting time: " << stats.at(i).getWaitTime() << " minutes." << std::endl;
-		std::cout << "Average waiting time: " << (stats.at(i).getWaitTime() * 1.0 / stats.at(i).getJobsHandled())
+		out << stats.at(i).getJobsHandled() << " jobs handled." << std::endl;
+		out << "Maximum wait: " << stats.at(i).getMaxWaitTime() << " minutes." << std::endl;
+		out << "Total waiting time: " << stats.at(i).getWaitTime() << " minutes." << std::endl;
+		out << "Average waiting time: " << (stats.at(i).getWaitTime() * 1.0 / stats.at(i).getJobsHandled())
 			<< " minutes.\n" << std::endl;
 
-		stats.at(i).clearStats();
+		stats.at(i).clearStats();									// Clear statistics for next simulation
 	}
 
-	std::cout << "Overall:\n";
-	std::cout << totalJobs << " jobs handled." << std::endl;
-	std::cout << "Total waiting time: " << totalWait << " minutes." << std::endl;
-	std::cout << "Average waiting time: " << (totalWait * 1.0 / totalJobs) << " minutes.\n\n" << std::endl;
-	std::cout << "================================================" << std::endl;
+	out << "Overall:\n";
+	out << totalJobs << " jobs handled." << std::endl;
+	out << "Total waiting time: " << totalWait << " minutes." << std::endl;
+	out << "Average waiting time: " << (totalWait * 1.0 / totalJobs) << " minutes.\n\n" << std::endl;
+	out << "================================================" << std::endl;
 }

@@ -12,8 +12,8 @@ int FIFO::selectJob(std::vector<jobsData>& jobsPending, std::vector<statistics>&
 	return printQueue::processJob(job, stats, currentTime);		// return nextAvailableTime
 }
 
-void FIFO::writeSummary(std::vector<statistics>& stats, int n_categories) {
-	std::cout << "Starting with FIFO queue.\n\n";
+void FIFO::writeSummary(std::ofstream& out, std::vector<statistics>& stats, int n_categories) {
+	out << "Starting with FIFO queue.\n\n";
 
-	printQueue::writeSummary(stats, n_categories);
+	printQueue::writeSummary(out, stats, n_categories);
 }
