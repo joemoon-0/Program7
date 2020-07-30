@@ -6,6 +6,7 @@
 *
 * NOTES ON PROGRAM 7:
 *	This program simulates the printing processes for FIFO, SJF, and PRIORITY scenarios.
+*	> See PROGRAM7RESULTSDISCUSSION.DOCX for analysis
 *
 *	** PROGRAM7.CPP **
 *	> Print jobs are initially read from file and stored within the "inputData" queue.
